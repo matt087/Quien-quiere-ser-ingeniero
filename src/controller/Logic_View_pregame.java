@@ -3,10 +3,13 @@ package controller;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.awt.event.ActionEvent;
 
 import view.View_main;
+import view.View_menu_game;
 import view.View_pregame;
 
 public class Logic_View_pregame implements ActionListener{
@@ -15,29 +18,46 @@ public class Logic_View_pregame implements ActionListener{
 	private View_pregame vp;
 	private int num_categorias;
 	private int dificultad;
+	private int participantes=2;
 	private String categorias_seleccionadas="";
-	private String aux = "";
-	
+	private String aux="", aux1="",aux2="",aux3="",aux4="";
+	private int tiempo=1;
+	private int resultado=0;
+
 	public Logic_View_pregame(View_pregame vp)
 	{
 		this.vp = vp;
-		num_categorias = 1;
+		num_categorias = 0;
 		dificultad=1;
-		this.vp.chckbx_arte.setSelected(true);
 		this.vp.rdbtn.setSelected(true);
 		this.vp.rdbtn.addActionListener(this);
 		this.vp.rdbtn_1.addActionListener(this);
 		this.vp.rdbtn_2.addActionListener(this);
 		this.vp.btn_iniciar.addActionListener(this);
 		this.vp.btn_cancelar.addActionListener(this);
-		this.vp.chckbx_arte.addActionListener(this);
-		this.vp.chckbx_calc.addActionListener(this);
-		this.vp.chckbx_ciencias.addActionListener(this);
-		this.vp.chckbx_cine.addActionListener(this);
-		this.vp.chckbx_geo.addActionListener(this);
 		this.vp.chckbx_historia.addActionListener(this);
+		this.vp.chckbx_gastronomia.addActionListener(this);
+		this.vp.chckbx_lugares.addActionListener(this);
+		this.vp.chckbx_Juegos.addActionListener(this);
+		this.vp.chckbx_personajes.addActionListener(this);
+		this.vp.slider_participantes.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) 
+			{
+				// TODO Auto-generated method stub
+				participantes = vp.slider_participantes.getValue();
+			}
+		});
+		this.vp.slider_tiempo.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) 
+			{
+				// TODO Auto-generated method stub
+				tiempo = vp.slider_tiempo.getValue();
+			}
+		});
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -49,14 +69,26 @@ public class Logic_View_pregame implements ActionListener{
 		}
 		if(e.getSource() == vp.btn_iniciar)
 		{
+			categorias_seleccionadas=aux+aux1+aux2+aux3+aux4;
 			if(num_categorias<3)
 			{
-				JOptionPane.showMessageDialog(vm, "Debe seleccionar 3 categorías o más");
+				JOptionPane.showMessageDialog(vm, "Debe seleccionar 3 categorías o más", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-			else
+			else 
 			{
-				String conf = "Nivel: "+dificultad+"\nCategorías Seleccionadas: \n";
-				JOptionPane.showConfirmDialog(vm, conf);
+				if(participantes%2!=0) 
+				{
+					participantes-=1;
+				}
+				String conf = "Nivel: "+dificultad+"\nCategorías Seleccionadas: \n"+categorias_seleccionadas
+						+"\nParticipantes: "+participantes+"\nTiempo: "+tiempo+" minutos";
+				resultado = JOptionPane.showConfirmDialog(vm, conf, "Confirmación",JOptionPane.OK_CANCEL_OPTION);
+				if(resultado==0)
+				{
+					View_menu_game vmg = new View_menu_game(participantes);
+					vmg.setVisible(true);
+					vp.dispose();
+				}
 			}
 		}
 		if(e.getSource() == vp.rdbtn)
@@ -77,50 +109,78 @@ public class Logic_View_pregame implements ActionListener{
 			vp.rdbtn.setSelected(false);
 			dificultad=3;
 		}
-		if(e.getSource()==vp.chckbx_arte)
-		{
-			
-			if(vp.chckbx_arte.isSelected())
-				num_categorias++;
-			else
-				num_categorias--;
-		}
-		if(e.getSource()==vp.chckbx_calc)
-		{
-			if(vp.chckbx_calc.isSelected())
-				num_categorias++;
-			else
-				num_categorias--;
-		}
-		if(e.getSource()==vp.chckbx_ciencias)
-		{
-			if(vp.chckbx_ciencias.isSelected())
-				num_categorias++;
-			else
-				num_categorias--;
-		}
-		if(e.getSource()==vp.chckbx_cine)
-		{
-			if(vp.chckbx_cine.isSelected())
-				num_categorias++;
-			else
-				num_categorias--;
-		}
-		if(e.getSource()==vp.chckbx_geo)
-		{
-			if(vp.chckbx_geo.isSelected())
-				num_categorias++;
-			else
-				num_categorias--;
-		}
 		if(e.getSource()==vp.chckbx_historia)
 		{
+			aux="";
 			if(vp.chckbx_historia.isSelected())
+			{
 				num_categorias++;
+				aux="  -Historia\n";
+			}
 			else
+			{
 				num_categorias--;
+				aux="";
+			}
 		}
-		
+		if(e.getSource()==vp.chckbx_gastronomia)
+		{
+			aux1="";
+
+			if(vp.chckbx_gastronomia.isSelected())
+			{
+				num_categorias++;
+				aux1="  -Gastronomía\n";
+			}			
+			else
+			{
+				num_categorias--;
+				aux1="";
+			}		
+		}
+		if(e.getSource()==vp.chckbx_lugares)
+		{
+			aux2="";
+			if(vp.chckbx_lugares.isSelected())
+			{
+				num_categorias++;
+				aux2="  -Lugares\n";
+			}			
+			else
+			{
+				num_categorias--;
+				aux2="";
+			}		
+		}
+		if(e.getSource()==vp.chckbx_Juegos)
+		{
+			aux3="";
+			if(vp.chckbx_Juegos.isSelected())
+			{
+				num_categorias++;
+				aux3="  -Juegos T.\n";
+			}			
+			else
+			{
+				num_categorias--;
+				aux3="";
+			}		
+		}
+		if(e.getSource()==vp.chckbx_personajes)
+		{
+			aux4="";
+			if(vp.chckbx_personajes.isSelected())
+			{
+				num_categorias++;
+				aux4="  -Personajes\n";
+			}			
+			else
+			{
+				num_categorias--;
+				aux4="";
+			}		
+		}
+
 	}
 
 }

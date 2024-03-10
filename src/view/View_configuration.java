@@ -14,6 +14,8 @@ import java.awt.Image;
 import controller.Logic_View_configuration;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class View_configuration extends JFrame {
@@ -23,10 +25,8 @@ public class View_configuration extends JFrame {
 	private Logic_View_configuration lvc;
 	public JButton btn_load;
 	public JButton btn_edit;
-	public JButton btn_delete;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
 
 	/**
 	 * Launch the application.
@@ -48,14 +48,21 @@ public class View_configuration extends JFrame {
 	 * Create the frame.
 	 */
 	public View_configuration() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				View_main vm = new View_main();
+				vm.setVisible(true);
+			}
+		});
 		setResizable(false);
 		setTitle("Configuración");
-//		setBounds(100, 100, 450, 300);
+		setBounds(300, 300, 683, 384);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = screenSize.width / 2;
 		int height = screenSize.height / 2;
-		setSize(width, height);
+//		setSize(width, height);
 
 		int x = (screenSize.width - width) / 2;
 		int y = (screenSize.height - height) / 2;
@@ -80,7 +87,7 @@ public class View_configuration extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_load.setBounds(53, 55, 150, 32);
+		btn_load.setBounds(394, 49, 150, 32);
 		panel.add(btn_load);
 		
 		btn_edit = new JButton("Editar preguntas");
@@ -88,12 +95,8 @@ public class View_configuration extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_edit.setBounds(257, 55, 150, 32);
+		btn_edit.setBounds(122, 49, 150, 32);
 		panel.add(btn_edit);
-		
-		btn_delete = new JButton("Borrar preguntas");
-		btn_delete.setBounds(461, 55, 150, 32);
-		panel.add(btn_delete);
 		
 		ImageIcon imagen1 = new ImageIcon("src/resources/descargar-archivo.png");
 		ImageIcon imagen2 = new ImageIcon("src/resources/nuevo-documento.png");
@@ -108,16 +111,12 @@ public class View_configuration extends JFrame {
 		ImageIcon scaled3 = new ImageIcon(image3);
 
 		lblNewLabel = new JLabel(scaled1);
-		lblNewLabel.setBounds(53, 97, 150, 150);
+		lblNewLabel.setBounds(394, 97, 150, 150);
 		panel.add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel(scaled2);
-		lblNewLabel_1.setBounds(257, 97, 150, 150);
+		lblNewLabel_1.setBounds(122, 97, 150, 150);
 		panel.add(lblNewLabel_1);
-		
-		lblNewLabel_2 = new JLabel(scaled3);
-		lblNewLabel_2.setBounds(461, 97, 150, 150);
-		panel.add(lblNewLabel_2);
 		lvc = new Logic_View_configuration(this);
 	}
 }
