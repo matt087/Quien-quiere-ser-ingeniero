@@ -13,6 +13,7 @@ public class Thread_players_rng extends Thread{
 	private int participantes;
 	private ArrayList<Participante> nombres = new ArrayList<Participante>();
 	private ArrayList<Participante> auxiliar = new ArrayList<Participante>();
+	private ArrayList<String> auxiliar_categorias = new ArrayList<String>();
 
 
 	public Thread_players_rng(View_menu_game vmg, int participantes)
@@ -20,7 +21,31 @@ public class Thread_players_rng extends Thread{
 		this.vmg=vmg;
 		this.participantes=participantes;
 	}
-
+	
+	private void randomCategory() throws InterruptedException
+	{
+		sleep(1000);
+		for(int i=0; i<2; i++)
+		{
+			for(String s:auxiliar_categorias)
+			{
+				this.vmg.lbl_Tema.setText(s);
+				sleep(200);
+			}
+		}
+		int index = new Random().nextInt(this.auxiliar_categorias.size());
+		this.vmg.lbl_Tema.setText(auxiliar_categorias.get(index));
+		auxiliar_categorias.remove(index);
+	}
+	
+	private void copyCategories()
+	{
+		for(String s:Logic_View_main.categorias)
+		{
+			auxiliar_categorias.add(s);
+		}
+	}
+	
 	private void randomParticipante()
 	{
 		Participante aux1;
@@ -147,6 +172,13 @@ public class Thread_players_rng extends Thread{
 			{
 				Logic_View_main.padao.createPlayer(p);
 			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		copyCategories();
+		try {
+			randomCategory();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

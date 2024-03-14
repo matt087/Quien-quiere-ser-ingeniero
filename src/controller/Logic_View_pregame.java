@@ -88,6 +88,10 @@ public class Logic_View_pregame implements ActionListener{
 					View_menu_game vmg = new View_menu_game(participantes);
 					vmg.setVisible(true);
 					vp.dispose();
+					for(String s:Logic_View_main.categorias)
+					{
+						System.out.println(s);
+					}
 				}
 			}
 		}
@@ -116,11 +120,13 @@ public class Logic_View_pregame implements ActionListener{
 			{
 				num_categorias++;
 				aux="  -Historia\n";
+				Logic_View_main.categorias.add("Historia");
 			}
 			else
 			{
 				num_categorias--;
 				aux="";
+				Logic_View_main.categorias.remove("Historia");
 			}
 		}
 		if(e.getSource()==vp.chckbx_gastronomia)
@@ -131,11 +137,13 @@ public class Logic_View_pregame implements ActionListener{
 			{
 				num_categorias++;
 				aux1="  -Gastronomía\n";
+				Logic_View_main.categorias.add("Gastronomía");
 			}			
 			else
 			{
 				num_categorias--;
 				aux1="";
+				Logic_View_main.categorias.remove("Gastronomía");
 			}		
 		}
 		if(e.getSource()==vp.chckbx_lugares)
@@ -145,11 +153,13 @@ public class Logic_View_pregame implements ActionListener{
 			{
 				num_categorias++;
 				aux2="  -Lugares\n";
+				Logic_View_main.categorias.add("Lugares");
 			}			
 			else
 			{
 				num_categorias--;
 				aux2="";
+				Logic_View_main.categorias.remove("Lugares");
 			}		
 		}
 		if(e.getSource()==vp.chckbx_Juegos)
@@ -159,11 +169,13 @@ public class Logic_View_pregame implements ActionListener{
 			{
 				num_categorias++;
 				aux3="  -Juegos T.\n";
+				Logic_View_main.categorias.add("Juegos Tradicionales");
 			}			
 			else
 			{
 				num_categorias--;
 				aux3="";
+				Logic_View_main.categorias.remove("Juegos Tradicionales");
 			}		
 		}
 		if(e.getSource()==vp.chckbx_personajes)
@@ -173,11 +185,13 @@ public class Logic_View_pregame implements ActionListener{
 			{
 				num_categorias++;
 				aux4="  -Personajes\n";
+				Logic_View_main.categorias.add("Personajes");
 			}			
 			else
 			{
 				num_categorias--;
 				aux4="";
+				Logic_View_main.categorias.remove("Personajes");
 			}		
 		}
 

@@ -22,7 +22,7 @@ public class Logic_View_main implements ActionListener{
 	public static Participante_DAO padao = new Participante_DAO();
 	public static List<Pregunta> preguntas;
 	public static List<Participante> participantes;
-	
+	public static List<String> categorias;
 	
 	public Logic_View_main(View_main vm)
 	{
@@ -32,6 +32,7 @@ public class Logic_View_main implements ActionListener{
 		this.vm.btn_start.addActionListener(this);
 		Logic_View_main.preguntas = pdao.getQuestions();
 		Logic_View_main.participantes = new ArrayList<Participante>();
+		Logic_View_main.categorias = new ArrayList<String>();
 		padao.deletePlayers();
 	}
 	
