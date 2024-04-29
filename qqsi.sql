@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-03-2024 a las 14:17:34
+-- Tiempo de generación: 29-04-2024 a las 19:50:12
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -41,7 +41,12 @@ INSERT INTO `categoria` (`id_categoria`, `nombre_categoria`) VALUES
 (2, 'Historia'),
 (3, 'Lugares'),
 (4, 'Personajes'),
-(5, 'Juegos Tradicionales');
+(5, 'Juegos Tradicionales'),
+(6, 'Matemáticas'),
+(7, 'Biología'),
+(8, 'Deportes'),
+(9, 'Geografía'),
+(10, 'Arte');
 
 -- --------------------------------------------------------
 
@@ -73,11 +78,29 @@ CREATE TABLE `pregunta` (
   `respuesta` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `pregunta`
+-- Estructura de tabla para la tabla `pregunta_quito`
 --
 
-INSERT INTO `pregunta` (`id_pregunta`, `id_categoria`, `nivel`, `pregunta`, `opcion1`, `opcion2`, `opcion3`, `opcion4`, `respuesta`) VALUES
+CREATE TABLE `pregunta_quito` (
+  `id_pregunta` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  `nivel` int(11) NOT NULL,
+  `pregunta` varchar(255) NOT NULL,
+  `opcion1` varchar(120) NOT NULL,
+  `opcion2` varchar(120) NOT NULL,
+  `opcion3` varchar(120) NOT NULL,
+  `opcion4` varchar(120) NOT NULL,
+  `respuesta` varchar(120) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `pregunta_quito`
+--
+
+INSERT INTO `pregunta_quito` (`id_pregunta`, `id_categoria`, `nivel`, `pregunta`, `opcion1`, `opcion2`, `opcion3`, `opcion4`, `respuesta`) VALUES
 (1, 1, 1, '¿Qué bebida caliente es típica de Quito y se prepara con panela, agua, canela y clavos de olor?', 'Canelazo', 'Chicha', 'Colada Morada', 'Horchata', 'Canelazo'),
 (2, 1, 3, '¿En qué tipo de hojas se suelen envolver los quimbolitos?', 'Achira', 'Chillangua', 'Ataco', 'Verde', 'Achira'),
 (3, 1, 2, '¿Cuál es el platillo emblemático de la zona de Pomasqui?', 'Seco de Chivo', 'Locro de Papa', 'Fritada', 'Hornado', 'Fritada'),
@@ -163,6 +186,13 @@ ALTER TABLE `pregunta`
   ADD KEY `id_categoria` (`id_categoria`);
 
 --
+-- Indices de la tabla `pregunta_quito`
+--
+ALTER TABLE `pregunta_quito`
+  ADD PRIMARY KEY (`id_pregunta`),
+  ADD KEY `id_categoria` (`id_categoria`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -170,17 +200,17 @@ ALTER TABLE `pregunta`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `pregunta`
+-- Filtros para la tabla `pregunta_quito`
 --
-ALTER TABLE `pregunta`
-  ADD CONSTRAINT `pregunta_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`);
+ALTER TABLE `pregunta_quito`
+  ADD CONSTRAINT `pregunta_quito_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -16,13 +16,31 @@ public class Logic_View_list_questions implements ActionListener{
 		this.vlq = vlq;
 		this.vlq.comboBox_questions.addActionListener(this);
 		this.vlq.comboBox_questions.addItem("Seleccione una categoría: ");
-		this.vlq.comboBox_questions.addItem("Gastronomia");
-		this.vlq.comboBox_questions.addItem("Historia");
-		this.vlq.comboBox_questions.addItem("Lugares");
-		this.vlq.comboBox_questions.addItem("Personajes");
-		this.vlq.comboBox_questions.addItem("Juegos Tradicionales");
+		setCmbx();
 	}
 
+	private void setCmbx()
+	{
+		if(Logic_View_main.modo)
+		{
+			this.vlq.comboBox_questions.addItem("Gastronomia");
+			this.vlq.comboBox_questions.addItem("Historia");
+			this.vlq.comboBox_questions.addItem("Lugares");
+			this.vlq.comboBox_questions.addItem("Personajes");
+			this.vlq.comboBox_questions.addItem("Juegos Tradicionales");
+		}
+		else
+		{
+			this.vlq.comboBox_questions.addItem("Gastronomia");
+			this.vlq.comboBox_questions.addItem("Historia");
+			this.vlq.comboBox_questions.addItem("Matemáticas");
+			this.vlq.comboBox_questions.addItem("Biología");
+			this.vlq.comboBox_questions.addItem("Deportes");
+			this.vlq.comboBox_questions.addItem("Geografía");
+			this.vlq.comboBox_questions.addItem("Arte");
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -41,6 +59,16 @@ public class Logic_View_list_questions implements ActionListener{
 					id_pregunta = 4;
 				if(vlq.comboBox_questions.getSelectedItem().equals("Juegos Tradicionales"))
 					id_pregunta = 5;
+				if(vlq.comboBox_questions.getSelectedItem().equals("Matemáticas"))
+					id_pregunta = 6;
+				if(vlq.comboBox_questions.getSelectedItem().equals("Biología"))
+					id_pregunta = 7;
+				if(vlq.comboBox_questions.getSelectedItem().equals("Deportes"))
+					id_pregunta = 8;
+				if(vlq.comboBox_questions.getSelectedItem().equals("Geografía"))
+					id_pregunta = 9;
+				if(vlq.comboBox_questions.getSelectedItem().equals("Arte"))
+					id_pregunta = 10;
 				for(Pregunta p:Logic_View_main.preguntas)
 				{
 					if(p.getId_categoría()==id_pregunta)

@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 import patron_generico.connection;
 
-public class Pregunta_DAO 
+public class Pregunta2_DAO 
 {
 	private connection query = new connection("QQSI");
 	private String querySQL="";
 
 	public boolean createQuestion(Pregunta p)
 	{
-		querySQL=String.format("INSERT INTO pregunta_quito VALUES(%d, %d, %d, '%s', '%s', '%s', '%s', '%s', '%s');",
+		querySQL=String.format("INSERT INTO pregunta VALUES(%d, %d, %d, '%s', '%s', '%s', '%s', '%s', '%s');",
 				p.getId_pregunta(),
 				p.getId_categoría(),
 				p.getNivel(),
@@ -30,7 +30,7 @@ public class Pregunta_DAO
 	public List<Pregunta> getQuestions()
 	{
 		List<Pregunta> preguntas = new ArrayList<Pregunta>();
-		querySQL="SELECT * FROM pregunta_quito;";
+		querySQL="SELECT * FROM pregunta;";
 		ResultSet res=query.getQuery(querySQL);
 		try {
 			while(res.next()) 

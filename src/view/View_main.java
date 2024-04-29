@@ -11,6 +11,7 @@ import java.awt.Image;
 
 import controller.Logic_View_main;
 import javax.swing.JLabel;
+import javax.swing.JToggleButton;
 
 public class View_main extends JFrame {
 	public JButton btn_start;
@@ -18,6 +19,7 @@ public class View_main extends JFrame {
 	public JButton btn_exit;
 	private Logic_View_main lvm;
 	private JLabel lblNewLabel;
+	public JToggleButton tgl_btn;
 
 	/**
 	 * Launch the application.
@@ -79,6 +81,10 @@ public class View_main extends JFrame {
 		lblNewLabel = new JLabel(scaled1);
 		lblNewLabel.setBounds(198, 11, 266, 201);
 		panel.add(lblNewLabel);
+		
+		tgl_btn = new JToggleButton("");
+		tgl_btn.setBounds(10, 11, 117, 23);
+		panel.add(tgl_btn);
 
 		lvm = new Logic_View_main(this);
 	}

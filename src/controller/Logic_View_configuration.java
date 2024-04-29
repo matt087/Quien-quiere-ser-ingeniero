@@ -38,7 +38,7 @@ public class Logic_View_configuration implements ActionListener{
 			boolean exists = false;
 			String[] aux3 = new String[4];
 			String aux2[] = s.split(";");
-			if(aux2[0].equals("Gastronomía"))
+			if(aux2[0].equals("Gastronomia") || aux2[0].equals("Gastronomía"))
 				id = 1;
 			if(aux2[0].equals("Historia"))
 				id = 2;
@@ -72,10 +72,64 @@ public class Logic_View_configuration implements ActionListener{
 			{
 				Logic_View_main.preguntas.add(aux_question);
 				Logic_View_main.pdao.createQuestion(aux_question);
+				System.out.println(aux_question.getPregunta());
 			}
-		}
-		
+		}	
 	}
+	
+	private void getQuestions_general()
+	{
+		String info = file.readerFile();
+		String aux[]=info.split("\n");
+		int last_index=1;
+		for(String s:aux)
+		{
+			int id=1;
+			boolean exists = false;
+			String[] aux3 = new String[4];
+			String aux2[] = s.split(";");
+			if(aux2[0].equals("Gastronomia") || aux2[0].equals("Gastronomía"))
+				id = 1;
+			if(aux2[0].equals("Historia"))
+				id = 2;
+			if(aux2[0].equals("Matemáticas"))
+				id = 6;
+			if(aux2[0].equals("Biología"))
+				id = 7;
+			if(aux2[0].equals("Deportes"))
+				id = 8;
+			if(aux2[0].equals("Geografía"))
+				id = 9;
+			if(aux2[0].equals("Arte"))
+				id = 10;
+			aux3[0]=aux2[2];
+			aux3[1]=aux2[3];
+			aux3[2]=aux2[4];
+			aux3[3]=aux2[5];
+			
+			for(String b:aux2)
+			{
+				System.out.println(b);
+			}
+			
+			aux_question =  new Pregunta(last_index, id, aux2[1], aux3, aux2[6],Integer.parseInt(aux2[7]));
+			last_index++;
+			for(Pregunta p:Logic_View_main.preguntas)
+			{
+				if(p.getPregunta().equals(aux_question.getPregunta()))
+				{
+					exists = true;
+					break;
+				}
+			}	
+			if(!exists)
+			{
+				Logic_View_main.preguntas.add(aux_question);
+				Logic_View_main.pdao2.createQuestion(aux_question);
+			}
+		}	
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -94,14 +148,29 @@ public class Logic_View_configuration implements ActionListener{
 		}
 		else if(e.getSource() == vc.btn_load)
 		{
-			if(file.getFileChooser(vc, "txt"))
+			if(Logic_View_main.modo)
 			{
-				getQuestions();
+				if(file.getFileChooser(vc, "txt"))
+				{
+					getQuestions();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(vc, "Error al importar preguntas");
+				}
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(vc, "Error al importar preguntas");
+				if(file.getFileChooser(vc, "txt"))
+				{
+					getQuestions_general();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(vc, "Error al importar preguntas");
+				}
 			}
+			
 		}
 	}
 
